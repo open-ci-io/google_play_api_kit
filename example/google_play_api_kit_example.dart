@@ -1,6 +1,19 @@
 import 'package:google_play_api_kit/google_play_api_kit.dart';
 
-void main() {
-  var awesome = Awesome();
-  print('awesome: ${awesome.isAwesome}');
+Object serviceAccountJson = {};
+const packageName = 'com.example.app';
+const aabFilePath = 'path/to/app.aab';
+
+Future<void> main() async {
+  final googlePlayApiKit = GooglePlayApiKit();
+
+  final publisherApi = await googlePlayApiKit.signInWithServiceAccountJson(
+    serviceAccountJson,
+  );
+
+  await googlePlayApiKit.uploadArtifact(
+    publisherApi: publisherApi,
+    packageName: packageName,
+    appBundlePath: aabFilePath,
+  );
 }
