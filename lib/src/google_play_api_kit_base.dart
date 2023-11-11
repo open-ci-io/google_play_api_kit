@@ -51,6 +51,8 @@ class GooglePlayApiKit {
     );
     final editId = response.id;
 
+    print('editId: $editId, packageName: $packageName');
+
     final result = await publisherApi.edits.bundles.upload(
       packageName,
       editId!,
