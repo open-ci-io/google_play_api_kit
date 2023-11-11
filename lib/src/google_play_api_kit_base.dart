@@ -44,12 +44,27 @@ class GooglePlayApiKit {
     _checkAppBundlePath(appBundlePath);
     final appBundle = File(appBundlePath);
     final media = await _appBundle(appBundle);
-    final internalSharingArtifact =
-        await publisherApi.internalappsharingartifacts.uploadbundle(
+
+    // editId
+
+    final response = await publisherApi.edits.insert(
+      AppEdit(),
       packageName,
+    );
+    final editId = response.id;
+
+    final result = await publisherApi.edits.bundles.upload(
+      packageName,
+      editId!,
       uploadMedia: media,
     );
-    print('AAB was uploaded: ${internalSharingArtifact.toJson()}');
+
+    // final internalSharingArtifact =
+    //     await publisherApi.internalappsharingartifacts.uploadbundle(
+    //   packageName,
+    //   uploadMedia: media,
+    // );
+    print('AAB was uploaded: ${result.toJson()}');
   }
 
   void _checkAppBundlePath(String appBundlePath) {
