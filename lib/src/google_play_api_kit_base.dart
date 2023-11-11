@@ -46,7 +46,7 @@ class GooglePlayApiKit {
     final media = await _appBundle(appBundle);
 
     final response = await publisherApi.edits.insert(
-      AppEdit(id: '0'),
+      AppEdit(),
       packageName,
     );
     final editId = response.id;
@@ -62,7 +62,7 @@ class GooglePlayApiKit {
     //   packageName,
     //   uploadMedia: media,
     // );
-    print('AppBundle was uploaded: ${result.toJson()}');
+    print('AppBundle was uploaded: v0.1.7: ${result.toJson()}');
   }
 
   void _checkAppBundlePath(String appBundlePath) {
