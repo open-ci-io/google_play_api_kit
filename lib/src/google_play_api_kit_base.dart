@@ -46,7 +46,7 @@ class GooglePlayApiKit {
     final media = await _appBundle(appBundle);
 
     final response = await publisherApi.edits.insert(
-      AppEdit(),
+      AppEdit(id: '0'),
       packageName,
     );
     final editId = response.id;
