@@ -1,6 +1,6 @@
 name: google_play_api_kit
 description: A Google Play API Kit.
-version: 0.1.4
+version: 0.1.5
 repository: https://github.com/my_org/my_repo
 
 environment:
