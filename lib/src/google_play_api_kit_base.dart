@@ -51,8 +51,6 @@ class GooglePlayApiKit {
     );
     final editId = response.id;
 
-    print('editId: $editId, packageName: $packageName');
-
     final result = await publisherApi.edits.bundles.upload(
       packageName,
       editId!,
@@ -63,12 +61,7 @@ class GooglePlayApiKit {
       editId,
     );
 
-    // final internalSharingArtifact =
-    //     await publisherApi.internalappsharingartifacts.uploadbundle(
-    //   packageName,
-    //   uploadMedia: media,
-    // );
-    print('AppBundle was uploaded: v0.1.9: ${result.toJson()}');
+    print('AppBundle was uploaded: ${result.toJson()}');
   }
 
   void _checkAppBundlePath(String appBundlePath) {
