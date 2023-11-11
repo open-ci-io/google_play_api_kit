@@ -19,11 +19,21 @@ class GooglePlayApiKit {
   }
 
   Future<Media> _appBundle(File appBundle) async {
+    await _checkAppBundleExits(appBundle);
     final artifactLength = await appBundle.length();
     final artifactStream = appBundle.openRead();
 
     return Media(artifactStream, artifactLength,
         contentType: 'application/octet-stream');
+  }
+
+  Future<void> _checkAppBundleExits(File appBundle) async {
+    final isExist = await appBundle.exists();
+    if (isExist) {
+      print('AAB is exist');
+    } else {
+      throw Exception('AAB is not exist');
+    }
   }
 
   Future<void> uploadArtifact({
