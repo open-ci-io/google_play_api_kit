@@ -58,13 +58,17 @@ class GooglePlayApiKit {
       editId!,
       uploadMedia: media,
     );
+    await publisherApi.edits.commit(
+      packageName,
+      editId,
+    );
 
     // final internalSharingArtifact =
     //     await publisherApi.internalappsharingartifacts.uploadbundle(
     //   packageName,
     //   uploadMedia: media,
     // );
-    print('AppBundle was uploaded: v0.1.7: ${result.toJson()}');
+    print('AppBundle was uploaded: v0.1.9: ${result.toJson()}');
   }
 
   void _checkAppBundlePath(String appBundlePath) {
