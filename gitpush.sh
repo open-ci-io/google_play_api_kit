@@ -10,4 +10,4 @@ git commit -m 'exp'
 git push origin develop
 
 # publish
-dart pub publish -y
+dart pub publish
