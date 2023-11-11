@@ -8,3 +8,6 @@ git commit -m 'exp'
 
 # developブランチにプッシュ
 git push origin develop
+
+# publish
+dart pub publish -y

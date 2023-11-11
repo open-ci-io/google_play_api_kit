@@ -31,7 +31,7 @@ class GooglePlayApiKit {
     required String packageName,
     required String appBundlePath,
   }) async {
-    _checkAppBundle(appBundlePath);
+    _checkAppBundlePath(appBundlePath);
     final appBundle = File(appBundlePath);
     final media = await _appBundle(appBundle);
     final internalSharingArtifact =
@@ -42,7 +42,7 @@ class GooglePlayApiKit {
     print('AAB was uploaded: ${internalSharingArtifact.toJson()}');
   }
 
-  void _checkAppBundle(String appBundlePath) {
+  void _checkAppBundlePath(String appBundlePath) {
     if (appBundlePath.endsWith('.aab')) {
       print('AAB is valid');
     } else {
