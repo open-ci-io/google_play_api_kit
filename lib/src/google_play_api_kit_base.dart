@@ -43,17 +43,22 @@ class GooglePlayApiKit {
     String appId,
     String appBundlePath,
   ) async {
-    final appBundle = await _appBundle(File(appBundlePath));
-    final app = 'projects/$projectNumber/apps/$appId';
+    try {
+      final appBundle = await _appBundle(File(appBundlePath));
+      final app = 'projects/$projectNumber/apps/$appId';
 
-    print('app: $app');
+      print('app: $app');
 
-    final result = await firebaseAppDistributionApi.media.upload(
-      GoogleFirebaseAppdistroV1UploadReleaseRequest(),
-      app,
-      uploadMedia: appBundle,
-    );
-    print('result: ${result.toJson()}');
+      final result = await firebaseAppDistributionApi.media.upload(
+        GoogleFirebaseAppdistroV1UploadReleaseRequest(),
+        app,
+        $fields: 'name',
+        uploadMedia: appBundle,
+      );
+      print('result: ${result.response}');
+    } catch (e) {
+      print('error: $e');
+    }
   }
 
   Future<Media> _appBundle(File appBundle) async {
