@@ -1,18 +1,13 @@
 name: google_play_api_kit
 description: A Google Play API Kit.
-version: 0.2.3
+version: 0.2.4
 repository: https://github.com/my_org/my_repo
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  googleapis:
-    git:
-      url: https://github.com/google/googleapis.dart.git
-      path: generated/googleapis
-      ref: 510b62e
-
+  googleapis: ^11.4.0
   googleapis_auth: ^1.4.1
   path: ^1.8.0
 

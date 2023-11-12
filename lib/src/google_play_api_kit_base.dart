@@ -39,14 +39,18 @@ class GooglePlayApiKit {
 
   Future<void> uploadAabToFAD(
     FirebaseAppDistributionApi firebaseAppDistributionApi,
-    String packageName,
+    int projectNumber,
+    String appId,
     String appBundlePath,
   ) async {
     final appBundle = await _appBundle(File(appBundlePath));
+    final app = 'projects/$projectNumber/apps/$appId';
+
+    print('app: $app');
 
     final result = await firebaseAppDistributionApi.media.upload(
       GoogleFirebaseAppdistroV1UploadReleaseRequest(),
-      packageName,
+      app,
       uploadMedia: appBundle,
     );
     print('result: ${result.toJson()}');
