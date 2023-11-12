@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:googleapis/androidpublisher/v3.dart';
+import 'package:googleapis/firebaseappdistribution/v1.dart';
 import 'package:googleapis_auth/auth_io.dart';
 
 class GooglePlayApiKit {
@@ -9,13 +10,46 @@ class GooglePlayApiKit {
   ) async {
     final accountCredentials =
         ServiceAccountCredentials.fromJson(serviceAccountJson);
-    final scopes = [AndroidPublisherApi.androidpublisherScope];
+    final scopes = [
+      AndroidPublisherApi.androidpublisherScope,
+    ];
     final client = await clientViaServiceAccount(
       accountCredentials,
       scopes,
     );
 
     return AndroidPublisherApi(client);
+  }
+
+  Future<FirebaseAppDistributionApi> signInWithServiceAccountJsonWithFADScope(
+    Object serviceAccountJson,
+  ) async {
+    final accountCredentials =
+        ServiceAccountCredentials.fromJson(serviceAccountJson);
+    final scopes = [
+      FirebaseAppDistributionApi.cloudPlatformScope,
+    ];
+    final client = await clientViaServiceAccount(
+      accountCredentials,
+      scopes,
+    );
+
+    return FirebaseAppDistributionApi(client);
+  }
+
+  Future<void> uploadAabToFAD(
+    FirebaseAppDistributionApi firebaseAppDistributionApi,
+    String packageName,
+    String appBundlePath,
+  ) async {
+    final appBundle = await _appBundle(File(appBundlePath));
+
+    final result = await firebaseAppDistributionApi.media.upload(
+      GoogleFirebaseAppdistroV1UploadReleaseRequest(),
+      packageName,
+      uploadMedia: appBundle,
+    );
+    print('result: ${result.toJson()}');
   }
 
   Future<Media> _appBundle(File appBundle) async {
@@ -37,7 +71,7 @@ class GooglePlayApiKit {
   }
 
   Future<void> uploadArtifact({
-    required AndroidPublisherApi publisherApi,
+    required AndroidPublisherApi androidPublisherApi,
     required String packageName,
     required String appBundlePath,
   }) async {
@@ -45,18 +79,18 @@ class GooglePlayApiKit {
     final appBundle = File(appBundlePath);
     final media = await _appBundle(appBundle);
 
-    final response = await publisherApi.edits.insert(
+    final response = await androidPublisherApi.edits.insert(
       AppEdit(),
       packageName,
     );
     final editId = response.id;
 
-    final result = await publisherApi.edits.bundles.upload(
+    final result = await androidPublisherApi.edits.bundles.upload(
       packageName,
       editId!,
       uploadMedia: media,
     );
-    await publisherApi.edits.commit(
+    await androidPublisherApi.edits.commit(
       packageName,
       editId,
     );

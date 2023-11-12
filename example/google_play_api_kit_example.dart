@@ -12,7 +12,7 @@ Future<void> main() async {
   );
 
   await googlePlayApiKit.uploadArtifact(
-    publisherApi: publisherApi,
+    androidPublisherApi: publisherApi,
     packageName: packageName,
     appBundlePath: aabFilePath,
   );
